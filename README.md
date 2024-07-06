@@ -1,54 +1,62 @@
-# Documentação do Aplicativo de Localização de Pessoas Desaparecidas
+# DESCRIÇÃO DOS ENDPOINTS
 
-## Visão Geral
-Este documento detalha a solução para um aplicativo que auxilia na localização de pessoas desaparecidas em Angola. O aplicativo permite que os usuários cadastrem casos de pessoas desaparecidas, visualizem casos, recebam notificações, façam observações, monitorem visualizações e usem um chat para comunicação.
+---
 
-## Funcionalidades Principais
+# Documentação de Rotas da API RESTful com AdonisJS
 
-### Cadastro de Usuários
-- Registro e autenticação de usuários.
-- Atualização de informações do perfil.
-- Recuperação de senha.
+Este repositório contém um projeto de API RESTful desenvolvido usando AdonisJS. Abaixo estão detalhadas as rotas disponíveis, seus métodos HTTP correspondentes e os controladores associados.
 
-### Cadastro de Pessoas Desaparecidas
-- Usuários podem cadastrar casos de pessoas desaparecidas.
-- Informações incluem nome, idade, gênero, última localização, descrição, e foto.
-- Atualização e exclusão de cadastros.
+## Rotas
 
-### Visualização de Casos
-- Lista de todas as pessoas desaparecidas cadastradas.
-- Detalhamento de cada caso, incluindo a contagem de visualizações.
+1. **Rota:** `/v1/api/moments`
 
-### Notificações
-- Notificações enviadas para atualizações em casos seguidos.
-- Notificações de novas pessoas desaparecidas na área do usuário.
-- Status de notificações (lida/não lida).
+   - **Métodos:** GET|HEAD
+   - **Controlador:** `MomentsController.index`
+   - **Descrição:** Obtém a lista de momentos disponíveis.
 
-### Observações
-- Usuários podem adicionar observações a casos específicos.
-- Observações visíveis a todos os usuários.
+2. **Rota:** `/v1/api/moments`
 
-### Visualizações
-- Registro de visualizações de cada caso.
-- Contagem total de visualizações visível aos usuários.
+   - **Métodos:** POST
+   - **Controlador:** `MomentsController.store`
+   - **Descrição:** Cria um novo momento.
 
-### Assinaturas
-- Usuários podem seguir casos específicos.
-- Recebimento de notificações sobre atualizações nos casos seguidos.
+3. **Rota:** `/v1/api/moments/:id`
 
-### Chat
-- Comunicação em tempo real entre usuários.
-- Chats privados para troca de informações sobre casos específicos.
-- Moderação de chats para garantir segurança e respeito entre usuários.
+   - **Métodos:** GET|HEAD
+   - **Controlador:** `MomentsController.show`
+   - **Descrição:** Obtém detalhes de um momento específico pelo seu ID.
 
-### Busca Avançada
-- Busca de casos por nome, idade, gênero, e localização.
-- Filtros para refinar os resultados da busca.
+4. **Rota:** `/v1/api/moments/:id`
 
-### Sistema de Feedback
-- Usuários podem enviar feedback sobre o aplicativo.
-- Administração pode visualizar e responder aos feedbacks.
+   - **Métodos:** PUT|PATCH
+   - **Controlador:** `MomentsController.update`
+   - **Descrição:** Atualiza um momento existente pelo seu ID.
 
-### Mapa de Localizações
-- Visualização de última localização conhecida em um mapa.
-- Direções para o local.
+5. **Rota:** `/v1/api/moments/:id`
+
+   - **Métodos:** DELETE
+   - **Controlador:** `MomentsController.destroy`
+   - **Descrição:** Exclui um momento pelo seu ID.
+
+6. **Rota:** `/v1/api/moments/:momentId/comments`
+
+   - **Métodos:** POST
+   - **Controlador:** `CommentsController.store`
+   - **Descrição:** Adiciona um comentário a um momento específico identificado por `momentId`.
+
+## Instruções de Uso
+
+Para executar este projeto localmente, siga estes passos:
+
+1. Clone este repositório em sua máquina local.
+2. Instale as dependências usando o comando `npm install`.
+3. Inicie o servidor com `node ace serve --watch`.
+4. Acesse a API usando a URL base: `http://localhost:3333`.
+
+## Contribuições
+
+Contribuições são bem-vindas! Se encontrar problemas ou melhorias potenciais, crie uma "issue" ou envie uma solicitação de pull (pull request).
+
+---
+
+Essa documentação oferece uma descrição detalhada das rotas, seus propósitos e como usar o projeto localmente. Você pode copiar e colar este conteúdo diretamente em seu arquivo README.md no GitHub.
