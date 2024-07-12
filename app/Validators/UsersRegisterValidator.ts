@@ -28,7 +28,7 @@ export default class UsersRegisterValidator {
     'full_name.maxLength': 'O nome completo não pode ter mais de 255 caracteres.',
     'phone_number.required': 'O número de telefone é obrigatório.',
     'phone_number.mobile': 'O número de telefone deve ser um número de telefone válido.',
-    'phone_number.unique': 'Já existe um usário com este número.',
+    'phone_number.unique': 'Já existe um usuário com este número.',
     'password.required': 'A senha é obrigatória.',
     'password.minLength': 'A senha deve ter no mínimo 6 caracteres.',
     'password.maxLength': 'A senha deve ter no máximo 20 caracteres.',

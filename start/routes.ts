@@ -7,7 +7,7 @@ Route.group(() => {
 
   Route.group(() => {
     Route.post('/register', 'UsersController.register')
-    Route.post('/login', 'UsersController.login')
+    Route.post('/login', 'AuthController.login')
     Route.post('/reset-password', 'UsersController.resetPassword')
   }).prefix('users')
 }).prefix('v1/api')
