@@ -5,9 +5,16 @@ Route.group(() => {
     return { hello: 'world' }
   })
 
+  //user routes
   Route.group(() => {
-    Route.post('/register', 'UsersController.register')
     Route.post('/login', 'AuthController.login')
-    Route.post('/reset-password', 'UsersController.resetPassword')
+    Route.post('/register', 'AuthController.register')
   }).prefix('users')
+
+  //users on
+  Route.group(() => {
+    Route.put('/update-profile', 'UsersController.updateProfile')
+    Route.post('/reset-password', 'UsersController.resetPassword')
+  }).prefix('users-on').middleware('auth')
+
 }).prefix('v1/api')
