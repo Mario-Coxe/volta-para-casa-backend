@@ -1,12 +1,16 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import Hash from '@ioc:Adonis/Core/Hash'
-
+import UsersRegisterValidator from 'App/Validators/UsersRegisterValidator'
 export default class UsersController {
   public async register({ request, response }: HttpContextContract) {
-    const data = request.only(['full_name', 'phone_number', 'password'])
-    const user = await User.create(data)
-    return response.created(user)
+    try {
+      const data = await request.validate(UsersRegisterValidator)
+      const user = await User.create(data)
+      return response.status(200).send({ user, message: 'Usuário Cadastrado' })
+    } catch (error) {
+      return response.status(400).send({ message: 'Erro ao cadastrar usuário', error })
+    }
   }
 
   public async login({ request, auth, response }: HttpContextContract) {
