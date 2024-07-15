@@ -15,12 +15,21 @@ Route.group(() => {
   Route.group(() => {
     Route.put('/update-profile', 'UsersController.updateProfile')
     Route.post('/reset-password', 'UsersController.resetPassword')
-  }).prefix('users-on').middleware('auth')
+  })
+    .prefix('users-on')
+    .middleware('auth')
 
   //provinces
   Route.group(() => {
     Route.get('/get-all', 'ProvincesController.index')
-  }).prefix('provinces-on').middleware('auth')
+  })
+    .prefix('provinces-on')
+    .middleware('auth')
 
-
+  //municipes
+  Route.group(() => {
+    Route.post('/register', 'MunicipesController.index')
+  })
+    .prefix('municipes-on')
+    .middleware('auth')
 }).prefix('v1/api')
