@@ -17,4 +17,10 @@ Route.group(() => {
     Route.post('/reset-password', 'UsersController.resetPassword')
   }).prefix('users-on').middleware('auth')
 
+  //provinces
+  Route.group(() => {
+    Route.get('/get-all', 'ProvincesController.index')
+  }).prefix('provinces-on').middleware('auth')
+
+
 }).prefix('v1/api')

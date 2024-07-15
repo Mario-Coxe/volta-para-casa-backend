@@ -19,11 +19,4 @@ export default class UsersController {
       return response.status(400).send({ message: 'Erro ao atualizar perfil', error })
     }
   }
-  public async resetPassword({ request, response }: HttpContextContract) {
-    const { email, newPassword } = request.only(['email', 'newPassword'])
-    const user = await User.findByOrFail('email', email)
-    user.password = await Hash.make(newPassword)
-    await user.save()
-    return response.ok({ message: 'Password reset successfully' })
-  }
 }

@@ -1,12 +1,19 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany } from "@ioc:Adonis/Lucid/Orm";
+import Municipe from './Municipe'
 
-export default class Province extends BaseModel {
+export default class Location extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
   public name: string
+
+  @column()
+  public longitude: string
+
+  @column()
+  public latitude: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
