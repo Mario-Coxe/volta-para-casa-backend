@@ -28,7 +28,8 @@ Route.group(() => {
 
   //municipes
   Route.group(() => {
-    Route.post('/register', 'MunicipesController.index')
+    Route.post('/register', 'MunicipesController.store')
+    Route.get('/get-all', 'MunicipesController.index')
   })
     .prefix('municipes-on')
     .middleware('auth')
