@@ -5,7 +5,7 @@ Route.group(() => {
     return { hello: 'world' }
   })
 
-  //user routes
+  //user auth
   Route.group(() => {
     Route.post('/login', 'AuthController.login')
     Route.post('/register', 'AuthController.register')
@@ -30,6 +30,7 @@ Route.group(() => {
   Route.group(() => {
     Route.post('/register', 'MunicipesController.store')
     Route.get('/get-all', 'MunicipesController.index')
+    Route.get('/get-by-search', 'MunicipesController.search')
   })
     .prefix('municipes-on')
     .middleware('auth')
