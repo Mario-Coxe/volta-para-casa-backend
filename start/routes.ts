@@ -44,5 +44,16 @@ Route.group(() => {
     .prefix('locations-on')
     .middleware('auth')
 
+  //missing people
+  Route.group(() => {
+    Route.post('/register', 'MissingPersonsController.store').middleware('auth')
+    Route.get('/get-all', 'MissingPersonsController.index')
+    Route.get('/find-one/:id', 'MissingPersonsController.show')
+    Route.put('/update-one/:id', 'MissingPersonsController.update').middleware('auth')
+    Route.delete('/delete-one/:id', 'MissingPersonsController.destroy').middleware('auth')
+  })
+    .prefix('missing-persons-on')
+    .middleware('auth')
+
 
 }).prefix('v1/api')
