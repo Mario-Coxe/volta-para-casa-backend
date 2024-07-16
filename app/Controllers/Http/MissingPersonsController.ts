@@ -17,7 +17,6 @@ export default class MissingPersonsController {
       "registered_by"
     ])
 
-
     dataToStore.registered_by = auth.user?.id!
 
     const photos = ['first_photo', 'second_photo', 'third_photo', 'fourth_photo'] as const
@@ -82,7 +81,7 @@ export default class MissingPersonsController {
     missingPerson.merge(dataToUpdate)
     await missingPerson.save()
 
-    return response.ok({ message: 'Atualizada Com Sucesso', missingPerson })
+    return response.ok({ message: 'Actualizado Com Sucesso', missingPerson })
   }
 
 
