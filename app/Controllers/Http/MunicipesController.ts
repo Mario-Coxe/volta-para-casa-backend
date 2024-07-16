@@ -12,7 +12,11 @@ export default class MunicipesController {
   public async index({ request, response }: HttpContextContract) {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
-    const municipes = await Municipe.query().orderBy('name', 'asc').paginate(page, limit)
+    const municipes = await Municipe.query()
+      .preload('province')
+      .orderBy('name', 'asc')
+      .paginate(page, limit)
+
     return response.ok(municipes)
   }
 
@@ -21,7 +25,7 @@ export default class MunicipesController {
     if (!name) {
       return response.status(400).send({ message: 'O parâmetro "name" é obrigatório para a busca' })
     }
-    const municipes = await Municipe.query().where('name', 'like', `%${name}%`)
+    const municipes = await Municipe.query().preload('province').where('name', 'like', `%${name}%`)
     return response.ok(municipes)
   }
 }

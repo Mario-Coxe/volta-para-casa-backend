@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasOne, HasOne, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import Province from './Province'
+
 export default class Municipe extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -9,8 +10,15 @@ export default class Municipe extends BaseModel {
   public name: string
 
   @column()
-  public province_id: number
-  
+  public provinceId: number
+
+
+  @belongsTo(() => Province, {
+    foreignKey: 'provinceId',
+    localKey: 'id'
+  })
+  public province: BelongsTo<typeof Province>
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
