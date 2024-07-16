@@ -8,9 +8,9 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('name')
       table.string('logitude')
-      table.string('logitude')
+      table.string('latitude')
       table.integer('municipes_id').unsigned().references('id').inTable('municipes').onDelete('CASCADE')
-      
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
