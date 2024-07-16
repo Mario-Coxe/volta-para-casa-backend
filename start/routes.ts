@@ -2,7 +2,7 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
   Route.get('/', async () => {
-    return { hello: 'world' }
+    return { hello: 'VOLTA PARA CASA' }
   })
 
   //user auth
@@ -34,4 +34,15 @@ Route.group(() => {
   })
     .prefix('municipes-on')
     .middleware('auth')
+
+  //locations
+  Route.group(() => {
+    Route.post('/register', 'LocationsController.store')
+    Route.get('/get-all', 'LocationsController.index')
+    Route.get('/find-one/:id', 'LocationsController.show')
+  })
+    .prefix('locations-on')
+    .middleware('auth')
+
+
 }).prefix('v1/api')
