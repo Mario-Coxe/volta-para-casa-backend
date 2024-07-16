@@ -36,7 +36,7 @@ export default class MissingPerson extends BaseModel {
     foreignKey: 'status_id',
     localKey: 'id'
   })
-  public state: BelongsTo<typeof StateMissingPerson>
+  public status: BelongsTo<typeof StateMissingPerson>
 
 
   @column()
