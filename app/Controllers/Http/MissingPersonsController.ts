@@ -41,7 +41,10 @@ export default class MissingPersonsController {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
 
-    const missingPersons = await MissingPerson.query().preload('user').preload('status').paginate(page, limit)
+    const missingPersons = await MissingPerson.query()
+      .preload('user')
+      .preload('status')
+      .paginate(page, limit)
     return response.ok(missingPersons)
   }
 
@@ -71,7 +74,7 @@ export default class MissingPersonsController {
       'first_photo',
       'second_photo',
       'third_photo',
-      'fourth_photo'
+      'fourth_photo',
     ])
 
     const photos = ['first_photo', 'second_photo', 'third_photo', 'fourth_photo'] as const
@@ -81,7 +84,7 @@ export default class MissingPersonsController {
         const fileName = `${Date.now()}-${file.clientName}`
         await file.move(Application.publicPath('uploads'), {
           name: fileName,
-          overwrite: true
+          overwrite: true,
         })
         dataToUpdate[photo] = fileName
       }
@@ -91,7 +94,6 @@ export default class MissingPersonsController {
 
     return response.ok({ message: 'Actualizado Com Sucesso', missingPerson })
   }
-
 
   public async destroy({ params, response }: HttpContextContract) {
     const missingPerson = await MissingPerson.findOrFail(params.id)
