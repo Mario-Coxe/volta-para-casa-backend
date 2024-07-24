@@ -25,12 +25,12 @@ Route.group(() => {
 
   //locations
   Route.group(() => {
-    Route.post('/register', 'LocationsController.store')
-    Route.get('/get-all', 'LocationsController.index')
-    Route.get('/find-one/:id', 'LocationsController.show')
+    Route.post('/', 'LocationsController.store').middleware('auth')
+    Route.get('/', 'LocationsController.index')
+    Route.get('/:id', 'LocationsController.show')
   })
     .prefix('locations')
-    .middleware('auth')
+
 
   //missing people
   Route.group(() => {

@@ -1,16 +1,14 @@
 openapi: 3.0.0
 info:
-  title: Tables
+  title: Locations
   version: 1.0.0
-  description: Tables
+  description: Locations
 paths:
-  /v1/api/tables/{id}:
+  /v1/api/locations/{id}:
     get:
-      summary: Retorna uma mesa pelo ID
-      security:
-        - bearerAuth: []
+      summary: Retorna a localização pelo ID
       tags:
-        - Tables
+        - Locations
       parameters:
         - name: id
           in: path
@@ -19,5 +17,5 @@ paths:
             type: integer
       responses:
         200:
-          description: Lista de mesas
+          description: Locations
 

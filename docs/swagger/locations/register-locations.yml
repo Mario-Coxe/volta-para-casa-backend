@@ -1,16 +1,16 @@
 openapi: 3.0.0
 info:
-  title: Tables
+  title: Locations
   version: 1.0.0
-  description: Tables
+  description: Locations
 paths:
-  /v1/api/tables:
+  /v1/api/locations:
     post:
-      summary: Cria uma nova mesa
+      summary: Cria uma nova location
       security:
         - bearerAuth: []
       tags:
-        - Tables
+        - Locations
       requestBody:
         required: true
         content:
@@ -20,16 +20,19 @@ paths:
               properties:
                 name:
                   type: string
-                  example: Developers
-                location:
+                  example: Sapu 2
+                longitude:
                   type: string
-                  example: Sala 1, antes do buffe
-                event_id:
-                  type: integer
+                  example: 12333
+                latitude:
+                  type: string
+                  example: 122332
+                municipe_id:
+                  type: number
                   example: 1
                 description:
                   type: string
                   example: description
       responses:
         200:
-          description: Mesa criada com sucesso
+          description: localização criada com sucesso
