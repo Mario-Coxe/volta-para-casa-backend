@@ -5,7 +5,7 @@ Route.group(() => {
   Route.group(() => {
     Route.post('/login', 'AuthController.login')
     Route.post('/register', 'AuthController.register')
-  }).prefix('users')
+  }).prefix('auth')
 
   //users on
   Route.group(() => {
@@ -20,16 +20,14 @@ Route.group(() => {
     Route.get('/get-all', 'ProvincesController.index')
   })
     .prefix('provinces-on')
-    .middleware('auth')
 
   //municipes
   Route.group(() => {
-    Route.post('/register', 'MunicipesController.store')
+    Route.post('/register', 'MunicipesController.store').middleware('auth')
     Route.get('/get-all', 'MunicipesController.index')
     Route.get('/get-by-search', 'MunicipesController.search')
   })
     .prefix('municipes-on')
-    .middleware('auth')
 
   //locations
   Route.group(() => {
@@ -49,7 +47,6 @@ Route.group(() => {
     Route.delete('/delete-one/:id', 'MissingPersonsController.destroy').middleware('auth')
   })
     .prefix('missing-persons-on')
-    .middleware('auth')
 
 
 }).prefix('v1/api')
