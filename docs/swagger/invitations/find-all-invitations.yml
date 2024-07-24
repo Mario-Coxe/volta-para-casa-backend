@@ -1,0 +1,28 @@
+openapi: 3.0.0
+info:
+  title: Invitations
+  version: 1.0.0
+  description: Invitations
+
+paths:
+  /v1/api/invitations:
+    get:
+      summary: Retorna todos os convites
+      security:
+        - bearerAuth: []
+      tags:
+        - Invitations
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Número da página
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens por página
+      responses:
+        200:
+          description: Lista dos convites

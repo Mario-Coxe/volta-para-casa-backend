@@ -1,0 +1,27 @@
+openapi: 3.0.0
+info:
+  title: Tables
+  version: 1.0.0
+  description: Tables
+paths:
+  /v1/api/tables:
+    get:
+      summary: Retorna todas as mesas
+      security:
+        - bearerAuth: []
+      tags:
+        - Tables
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Número da página
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens por página
+      responses:
+        200:
+          description: Lista de mesas

@@ -1,0 +1,23 @@
+openapi: 3.0.0
+info:
+  title: Tables
+  version: 1.0.0
+  description: Tables
+paths:
+  /v1/api/tables/{id}:
+    get:
+      summary: Retorna uma mesa pelo ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Tables
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Lista de mesas
+

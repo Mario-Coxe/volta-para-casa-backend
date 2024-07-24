@@ -1,0 +1,28 @@
+openapi: 3.0.0
+info:
+  title: Guests
+  version: 1.0.0
+  description: Guests
+
+paths:
+  /v1/api/guests:
+    get:
+      summary: Retorna todos os convidados
+      security:
+        - bearerAuth: []
+      tags:
+        - Guests
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Número da página
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens por página
+      responses:
+        200:
+          description: Lista de convidados

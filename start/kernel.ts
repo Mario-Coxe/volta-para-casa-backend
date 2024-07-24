@@ -10,6 +10,7 @@
 */
 
 import Server from '@ioc:Adonis/Core/Server'
+import Ws from 'App/Services/Ws'
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Server.middleware.register([() => import('@ioc:Adonis/Core/BodyParser')])
 | Route.get('dashboard', 'UserController.dashboard').middleware('auth')
 |
 */
+
 Server.middleware.registerNamed({
   auth: 'App/Middleware/Auth',
 })

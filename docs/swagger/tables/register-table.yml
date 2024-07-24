@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: Tables
+  version: 1.0.0
+  description: Tables
+paths:
+  /v1/api/tables:
+    post:
+      summary: Cria uma nova mesa
+      security:
+        - bearerAuth: []
+      tags:
+        - Tables
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Developers
+                location:
+                  type: string
+                  example: Sala 1, antes do buffe
+                event_id:
+                  type: integer
+                  example: 1
+                description:
+                  type: string
+                  example: description
+      responses:
+        200:
+          description: Mesa criada com sucesso

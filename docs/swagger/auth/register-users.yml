@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: Application with Swagger docs
+  version: 1.0.0
+  description: Auth
+paths:
+  /auth/register:
+    post:
+      summary: Registra um novo usuário
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Mário Coxe
+                phone_number:
+                  type: string
+                  example: 945047525
+                email:
+                  type: string
+                  example: mariocoxedev@egmail.com
+                password:
+                  type: string
+                  example: 12345678
+      responses:
+        200:
+          description: Usuário registrado com sucesso

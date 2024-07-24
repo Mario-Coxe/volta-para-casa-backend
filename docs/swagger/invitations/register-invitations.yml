@@ -1,0 +1,32 @@
+openapi: 3.0.0
+info:
+  title: Invitations
+  version: 1.0.0
+  description: Invitations
+paths:
+  /v1/api/invitations:
+    post:
+      summary: Cria um novo convite
+      security:
+        - bearerAuth: []
+      tags:
+        - Invitations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_id:
+                  type: number
+                  example: 1
+                guest_id:
+                  type: number
+                  example: 1
+                description:
+                  type: email
+                  example: sobre o convite
+      responses:
+        200:
+          description: Convite criado com sucesso

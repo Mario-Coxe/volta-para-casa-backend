@@ -42,7 +42,7 @@ const databaseConfig: DatabaseConfig = {
       pool: {
         afterCreate: (conn, cb) => {
           conn.run('PRAGMA foreign_keys=true', cb)
-        }
+        },
       },
       migrations: {
         naturalSort: true,
@@ -58,13 +58,12 @@ const databaseConfig: DatabaseConfig = {
         host: Env.get('DB_HOST', 'localhost'),
         port: Env.get('DB_PORT', '3306'),
         user: Env.get('DB_USER', 'root'),
-        password: Env.get('DB_PASSWORD', 'Mcox@23'),
-        database: Env.get('DB_DATABASE', 'volta_para_casa'),
+        password: Env.get('DB_PASSWORD', 'computacao'),
+        database: Env.get('DB_DATABASE', 'confesta'),
       },
       debug: Env.get('DB_DEBUG', false),
     },
-
-  }
+  },
 }
 
 export default databaseConfig

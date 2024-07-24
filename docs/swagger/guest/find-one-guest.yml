@@ -1,0 +1,23 @@
+openapi: 3.0.0
+info:
+  title: Guests
+  version: 1.0.0
+  description: Guests
+paths:
+  /v1/api/guests/{id}:
+    get:
+      summary: Retorna uma convidado pelo ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Guests
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Lista de convidados
+

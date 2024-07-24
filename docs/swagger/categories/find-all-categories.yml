@@ -1,0 +1,25 @@
+openapi: 3.0.0
+info:
+  title: Application with Swagger docs
+  version: 1.0.0
+  description: Categories
+paths:
+  /v1/api/categories:
+    get:
+      summary: Retorna todas as categorias
+      tags:
+        - Categories
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Número da página
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Número de itens por página
+      responses:
+        200:
+          description: Lista de categorias

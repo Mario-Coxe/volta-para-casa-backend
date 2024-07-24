@@ -1,0 +1,28 @@
+openapi: 3.0.0
+info:
+  title: Application with Swagger docs
+  version: 1.0.0
+  description: Auth
+paths:
+  /auth/login:
+    post:
+      summary: Realiza o login do usuário
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                identifier:
+                  type: string
+                  example: mariocoxedev@gmail.com
+                  description: Pode ser um email ou número de telefone
+                password:
+                  type: string
+                  example: 12345678
+      responses:
+        200:
+          description: Login efetuado com sucesso

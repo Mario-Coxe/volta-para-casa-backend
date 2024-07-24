@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: Guests
+  version: 1.0.0
+  description: Guests
+paths:
+  /v1/api/guests:
+    post:
+      summary: Cria um novo convidado
+      security:
+        - bearerAuth: []
+      tags:
+        - Guests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Developers
+                phone:
+                  type: string
+                  example: 945047525
+                email:
+                  type: email
+                  example: mariocoxedev@gmail.com
+                categoryguest_id:
+                  type: number
+                  example: 1
+                table_id:
+                  type: number
+                  example: 1
+      responses:
+        200:
+          description: Convidado criado com sucesso

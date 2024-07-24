@@ -1,0 +1,23 @@
+openapi: 3.0.0
+info:
+  title: Invitations
+  version: 1.0.0
+  description: Invitations
+paths:
+  /v1/api/invitations/{id}:
+    get:
+      summary: Retorna uma convidado pelo ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Invitations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Lista de convite especificos
+

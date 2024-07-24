@@ -1,10 +1,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.get('/', async () => {
-    return { hello: 'VOLTA PARA CASA' }
-  })
-
   //user auth
   Route.group(() => {
     Route.post('/login', 'AuthController.login')
@@ -57,3 +53,8 @@ Route.group(() => {
 
 
 }).prefix('v1/api')
+
+
+Route.get('/', async () => {
+  return { hello: 'VOLTA PARA CASA' }
+})

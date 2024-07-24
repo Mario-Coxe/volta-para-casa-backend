@@ -1,0 +1,21 @@
+openapi: 3.0.0
+info:
+  title: Application with Swagger docs
+  version: 1.0.0
+  description: Categories
+paths:
+  /v1/api/categories/{id}:
+    get:
+      summary: Retorna uma categoria pelo ID
+      tags:
+        - Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Lista de categorias
+

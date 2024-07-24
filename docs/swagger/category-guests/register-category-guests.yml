@@ -1,0 +1,27 @@
+openapi: 3.0.0
+info:
+  title: Application with Swagger docs
+  version: 1.0.0
+  description: Categories
+paths:
+  /v1/api/category-guests:
+    post:
+      summary: Cria uma nova categoria
+      tags:
+        - Category Guests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Corporativos
+                description:
+                  type: string
+                  example: Eventos corporativos
+      responses:
+        200:
+          description: Categoria criada com sucesso
