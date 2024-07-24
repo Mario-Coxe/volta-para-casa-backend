@@ -1,0 +1,22 @@
+openapi: 3.0.0
+info:
+  title: Missing Persons
+  version: 1.0.0
+  description: Missing Persons
+paths:
+  /v1/api/missing-persons/{id}:
+    get:
+      summary: Obter uma pessoas desaparecida pelo ID
+      tags:
+        - Missing Persons
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Pessoa desaparecida encontrada
+        404:
+          description: Pessoa desaparecida não encontrada

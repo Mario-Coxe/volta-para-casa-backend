@@ -1,17 +1,14 @@
 openapi: 3.0.0
 info:
-  title: Invitations
+  title: Missing Persons
   version: 1.0.0
-  description: Invitations
-
+  description: Missing Persons
 paths:
-  /v1/api/invitations:
+  /v1/api/missing-persons:
     get:
-      summary: Retorna todos os convites
-      security:
-        - bearerAuth: []
+      summary: Retorna todas os municipios
       tags:
-        - Invitations
+        - Missing Persons
       parameters:
         - in: query
           name: page
@@ -25,4 +22,6 @@ paths:
           description: Número de itens por página
       responses:
         200:
-          description: Lista dos convites
+          description: Lista de todos as pessoas desaparecidas
+         
+

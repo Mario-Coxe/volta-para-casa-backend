@@ -44,7 +44,9 @@ export default class MissingPersonsController {
     const missingPersons = await MissingPerson.query()
       .preload('user')
       .preload('status')
+      .orderBy('created_at', 'desc')
       .paginate(page, limit)
+
     return response.ok(missingPersons)
   }
 
