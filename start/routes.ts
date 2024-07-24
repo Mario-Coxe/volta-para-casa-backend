@@ -36,7 +36,7 @@ Route.group(() => {
   Route.group(() => {
     Route.post('', 'MissingPersonsController.store').middleware('auth')
     Route.get('/', 'MissingPersonsController.index')
-    Route.get('/:id', 'MissingPersonsController.show')
+    Route.get('/:id', 'MissingPersonsController.show').middleware('auth')
     Route.put('/:id', 'MissingPersonsController.update').middleware('auth')
     Route.delete('/:id', 'MissingPersonsController.destroy').middleware('auth')
   })

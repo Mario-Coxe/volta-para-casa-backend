@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import MissingPerson from 'App/Models/MissingPerson'
 import Application from '@ioc:Adonis/Core/Application'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import MissingPersonView from 'App/Models/MissingPersonView'
 
 export default class MissingPersonsController {
   public async store({ request, response, auth }: HttpContextContract) {
@@ -50,13 +51,18 @@ export default class MissingPersonsController {
     return response.ok(missingPersons)
   }
 
-  public async show({ params, response }: HttpContextContract) {
+  public async show({ params, response, auth }: HttpContextContract) {
     try {
       const missingPerson = await MissingPerson.query()
         .where('id', params.id)
         .preload('user')
         .preload('status')
         .firstOrFail()
+
+      await MissingPersonView.create({
+        missingPersonId: missingPerson.id,
+        userId: auth.user?.id,
+      })
 
       return response.ok(missingPerson)
     } catch (error) {
