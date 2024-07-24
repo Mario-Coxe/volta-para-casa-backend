@@ -3,6 +3,8 @@ import MissingPerson from 'App/Models/MissingPerson'
 import Application from '@ioc:Adonis/Core/Application'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import MissingPersonView from 'App/Models/MissingPersonView'
+import Database from '@ioc:Adonis/Lucid/Database'
+import MissingPersonFollower from 'App/Models/MissingPersonFollower'
 
 export default class MissingPersonsController {
   public async store({ request, response, auth }: HttpContextContract) {
@@ -59,12 +61,26 @@ export default class MissingPersonsController {
         .preload('status')
         .firstOrFail()
 
-      await MissingPersonView.create({
-        missingPersonId: missingPerson.id,
-        userId: auth.user?.id,
-      })
+      if (auth.user) {
+        const existingView = await MissingPersonView.query()
+          .where('missing_person_id', missingPerson.id)
+          .andWhere('user_id', auth.user.id)
+          .first()
 
-      return response.ok(missingPerson)
+        if (!existingView) {
+          await MissingPersonView.create({
+            missingPersonId: missingPerson.id,
+            userId: auth.user.id,
+          })
+        }
+      }
+
+      const viewCount = await Database
+        .from('missing_person_views')
+        .where('missing_person_id', missingPerson.id)
+        .count('* as total')
+
+      return response.ok({ missingPerson, viewCount: viewCount[0].total })
     } catch (error) {
       return response.notFound({ message: 'Pessoa desaparecida não encontrada' })
     }
@@ -107,5 +123,35 @@ export default class MissingPersonsController {
     const missingPerson = await MissingPerson.findOrFail(params.id)
     await missingPerson.delete()
     return response.ok({ message: 'Pessoa desaparecida excluída com sucesso' })
+  }
+
+
+  public async follow({ params, auth, response }: HttpContextContract) {
+    const existingFollower = await MissingPersonFollower.query()
+      .where('missing_person_id', params.id)
+      .andWhere('user_id', auth.user!.id)
+      .first()
+
+    if (existingFollower) {
+      return response.ok({ message: 'Já está em observação' })
+    }
+
+    await MissingPersonFollower.create({
+      missingPersonId: params.id,
+      userId: auth.user!.id,
+    })
+
+    return response.ok({ message: 'Seguindo com sucesso' })
+  }
+
+  public async unfollow({ params, auth, response }: HttpContextContract) {
+    const follower = await MissingPersonFollower.query()
+      .where('missing_person_id', params.id)
+      .andWhere('user_id', auth.user!.id)
+      .firstOrFail()
+
+    await follower.delete()
+
+    return response.ok({ message: 'Deixou de seguir' })
   }
 }

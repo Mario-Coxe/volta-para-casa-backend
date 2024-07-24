@@ -1,0 +1,24 @@
+openapi: 3.0.0
+info:
+  title: Missing Persons
+  version: 1.0.0
+  description: Missing Persons
+paths:
+  /v1/api/missing-persons/unfollow/{id}:
+    post:
+      summary: Deixar de observar caso de uma pessoa desaparecida
+      security:
+        - bearerAuth: []
+      tags:
+        - Missing Persons
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Deixou de observar
+        404:
+          description: Pessoa desaparecida não encontrada
