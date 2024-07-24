@@ -30,7 +30,7 @@ Route.group(() => {
     Route.get('/get-all', 'LocationsController.index')
     Route.get('/find-one/:id', 'LocationsController.show')
   })
-    .prefix('locations-on')
+    .prefix('locations')
     .middleware('auth')
 
   //missing people
@@ -41,7 +41,7 @@ Route.group(() => {
     Route.put('/update-one/:id', 'MissingPersonsController.update').middleware('auth')
     Route.delete('/delete-one/:id', 'MissingPersonsController.destroy').middleware('auth')
   })
-    .prefix('missing-persons-on')
+    .prefix('missing-persons')
 
 
 }).prefix('v1/api')

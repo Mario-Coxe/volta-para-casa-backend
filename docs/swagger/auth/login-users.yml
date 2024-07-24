@@ -16,9 +16,9 @@ paths:
             schema:
               type: object
               properties:
-                identifier:
+                phone_number:
                   type: string
-                  example: mariocoxedev@gmail.com
+                  example: 945047525
                   description: Pode ser um email ou número de telefone
                 password:
                   type: string
