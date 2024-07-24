@@ -5,6 +5,7 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import MissingPersonView from 'App/Models/MissingPersonView'
 import Database from '@ioc:Adonis/Lucid/Database'
 import MissingPersonFollower from 'App/Models/MissingPersonFollower'
+import Ws from 'App/Services/Ws'
 
 export default class MissingPersonsController {
   public async store({ request, response, auth }: HttpContextContract) {
@@ -139,6 +140,12 @@ export default class MissingPersonsController {
     await MissingPersonFollower.create({
       missingPersonId: params.id,
       userId: auth.user!.id,
+    })
+
+    const missingPerson = await MissingPerson.findOrFail(params.id)
+
+    Ws.io.emit('new:invitation', {
+      message: `${auth.user?.full_name} está seguindo o caso de ${missingPerson.name}`
     })
 
     return response.ok({ message: 'Seguindo com sucesso' })
