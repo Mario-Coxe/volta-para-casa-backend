@@ -22,6 +22,7 @@ export default class MunicipesController {
 
   public async search({ request, response }: HttpContextContract) {
     const name = request.input('name')
+
     if (!name) {
       return response.status(400).send({ message: 'O parâmetro "name" é obrigatório para a busca' })
     }

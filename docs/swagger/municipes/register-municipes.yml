@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: Municipes
+  version: 1.0.0
+  description: Municipes
+paths:
+  /v1/api/municipes:
+    post:
+      summary: Cria uma novo municipio
+      security:
+        - bearerAuth: []
+      tags:
+        - Municipes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Luanda
+                province_id:
+                  type: number
+                  example: 1
+      responses:
+        200:
+          description: Municipio criado com sucesso

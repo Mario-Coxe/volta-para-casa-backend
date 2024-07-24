@@ -2,27 +2,26 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
 
-  //users on
+  //users
   Route.group(() => {
     Route.put('/update-profile', 'UsersController.updateProfile')
-    Route.post('/reset-password', 'UsersController.resetPassword')
   })
-    .prefix('users-on')
+    .prefix('users')
     .middleware('auth')
 
   //provinces
   Route.group(() => {
-    Route.get('/get-all', 'ProvincesController.index')
+    Route.get('/', 'ProvincesController.index')
   })
-    .prefix('provinces-on')
+    .prefix('provinces')
 
   //municipes
   Route.group(() => {
-    Route.post('/register', 'MunicipesController.store').middleware('auth')
-    Route.get('/get-all', 'MunicipesController.index')
-    Route.get('/get-by-search', 'MunicipesController.search')
+    Route.post('/', 'MunicipesController.store').middleware('auth')
+    Route.get('/', 'MunicipesController.index')
+    Route.get('/search', 'MunicipesController.search')
   })
-    .prefix('municipes-on')
+    .prefix('municipes')
 
   //locations
   Route.group(() => {
