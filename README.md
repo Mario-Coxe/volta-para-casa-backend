@@ -24,9 +24,6 @@ Este documento detalha a solução para um aplicativo que auxilia na localizaç�
 - Notificações de novas pessoas desaparecidas na área do usuário.
 - Status de notificações (lida/não lida).
 
-### Observações
-- Usuários podem adicionar observações a casos específicos.
-- Observações visíveis a todos os usuários.
 
 ### Visualizações
 - Registro de visualizações de cada caso.
