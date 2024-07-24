@@ -1,11 +1,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  //user auth
-  Route.group(() => {
-    Route.post('/login', 'AuthController.login')
-    Route.post('/register', 'AuthController.register')
-  }).prefix('auth')
 
   //users on
   Route.group(() => {
@@ -50,6 +45,13 @@ Route.group(() => {
 
 
 }).prefix('v1/api')
+
+
+//login and register
+Route.group(() => {
+  Route.post('/login', 'AuthController.login')
+  Route.post('/register', 'AuthController.register')
+}).prefix('auth')
 
 
 Route.get('/', async () => {
