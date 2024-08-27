@@ -27,17 +27,15 @@ export default class MissingPerson extends BaseModel {
 
   @belongsTo(() => User, {
     foreignKey: 'registered_by',
-    localKey: 'id'
+    localKey: 'id',
   })
   public user: BelongsTo<typeof User>
 
-
   @belongsTo(() => StateMissingPerson, {
     foreignKey: 'status_id',
-    localKey: 'id'
+    localKey: 'id',
   })
   public status: BelongsTo<typeof StateMissingPerson>
-
 
   @column()
   public description: string

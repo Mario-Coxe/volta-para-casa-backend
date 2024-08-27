@@ -76,8 +76,7 @@ export default class MissingPersonsController {
         }
       }
 
-      const viewCount = await Database
-        .from('missing_person_views')
+      const viewCount = await Database.from('missing_person_views')
         .where('missing_person_id', missingPerson.id)
         .count('* as total')
 
@@ -87,37 +86,41 @@ export default class MissingPersonsController {
     }
   }
 
-  public async update({ params, request, response }: HttpContextContract) {
-    const missingPerson = await MissingPerson.findOrFail(params.id)
+  public async update({ params, request, response, auth }: HttpContextContract) {
+    try {
+      const userId = auth.user?.id
+      const missingPerson = await MissingPerson.findOrFail(params.id)
 
-    const dataToUpdate = request.only([
-      'name',
-      'age',
-      'gender',
-      'lastLocation',
-      'description',
-      'first_photo',
-      'second_photo',
-      'third_photo',
-      'fourth_photo',
-    ])
-
-    const photos = ['first_photo', 'second_photo', 'third_photo', 'fourth_photo'] as const
-    for (const photo of photos) {
-      const file = request.file(photo)
-      if (file) {
-        const fileName = `${Date.now()}-${file.clientName}`
-        await file.move(Application.publicPath('uploads'), {
-          name: fileName,
-          overwrite: true,
+      if (missingPerson.registered_by !== userId) {
+        return response.forbidden({
+          message: 'Você não tem permissão para atualizar este registro.',
         })
-        dataToUpdate[photo] = fileName
       }
-    }
-    missingPerson.merge(dataToUpdate)
-    await missingPerson.save()
 
-    return response.ok({ message: 'Actualizado Com Sucesso', missingPerson })
+      const dataToUpdate = request.all()
+
+      const photos = ['first_photo', 'second_photo', 'third_photo', 'fourth_photo'] as const
+      for (const photo of photos) {
+        const file = request.file(photo)
+        if (file) {
+          const fileName = `${Date.now()}-${file.clientName}`
+          await file.move(Application.publicPath('uploads'), {
+            name: fileName,
+            overwrite: true,
+          })
+          dataToUpdate[photo] = fileName
+        }
+      }
+      missingPerson.merge(dataToUpdate)
+      await missingPerson.save()
+
+      return response.ok({ message: 'Atualizado com sucesso', missingPerson })
+    } catch (error) {
+      return response.internalServerError({
+        message: 'Ocorreu um erro ao tentar atualizar o registro.',
+        error: error.message,
+      })
+    }
   }
 
   public async destroy({ params, response }: HttpContextContract) {
@@ -125,7 +128,6 @@ export default class MissingPersonsController {
     await missingPerson.delete()
     return response.ok({ message: 'Pessoa desaparecida excluída com sucesso' })
   }
-
 
   public async follow({ params, auth, response }: HttpContextContract) {
     const existingFollower = await MissingPersonFollower.query()
@@ -145,7 +147,7 @@ export default class MissingPersonsController {
     const missingPerson = await MissingPerson.findOrFail(params.id)
 
     Ws.io.emit('new:invitation', {
-      message: `${auth.user?.full_name} está seguindo o caso de ${missingPerson.name}`
+      message: `${auth.user?.full_name} está seguindo o caso de ${missingPerson.name}`,
     })
 
     return response.ok({ message: 'Seguindo com sucesso' })

@@ -6,7 +6,7 @@ info:
 paths:
   /v1/api/missing-persons:
     get:
-      summary: Retorna todas os municipios
+      summary: Retorna todas as pessoas desaparecidas
       tags:
         - Missing Persons
       parameters:
@@ -23,5 +23,5 @@ paths:
       responses:
         200:
           description: Lista de todos as pessoas desaparecidas
-         
+
 

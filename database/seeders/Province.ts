@@ -57,11 +57,8 @@ export default class extends BaseSeeder {
         name: 'Zaire',
       },
       {
-        name: 'Bié'
+        name: 'Bié',
       },
-      {
-        name: 'Bié'
-      }
     ])
   }
 }

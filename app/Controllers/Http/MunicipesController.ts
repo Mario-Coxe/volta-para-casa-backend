@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Municipe from 'App/Models/Municipe'
 import CreateMunicipeValidator from 'App/Validators/RegisterMunicipeValidator'
+import { EMPTY } from 'sqlite3'
 
 export default class MunicipesController {
   public async store({ request, response }: HttpContextContract) {
@@ -27,6 +28,8 @@ export default class MunicipesController {
       return response.status(400).send({ message: 'O parâmetro "name" é obrigatório para a busca' })
     }
     const municipes = await Municipe.query().preload('province').where('name', 'like', `%${name}%`)
+
+    if (!municipes.length) return response.badRequest({ message: 'Nenhum Resultado' })
     return response.ok(municipes)
   }
 }

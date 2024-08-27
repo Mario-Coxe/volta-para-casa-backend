@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+  title: Missing Persons
+  version: 1.0.0
+  description: A Missing Persons
+paths:
+   /v1/api/missing-persons/{id}:
+    put:
+      summary: Atualiza uma pessoa desaparecida
+      security:
+        - bearerAuth: []
+      description: Atualiza as informações de uma pessoa desaparecida existente pelo ID
+      tags:
+        - Missing Persons
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID da pessoa desaparecida a ser atualizada
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nome da pessoa desaparecida
+                  example: "João da Silva"
+                age:
+                  type: integer
+                  description: Idade da pessoa desaparecida
+                  example: 35
+                gender:
+                  type: string
+                  description: Gênero da pessoa desaparecida
+                  example: "Masculino"
+                lastLocation:
+                  type: string
+                  description: Última localização conhecida da pessoa desaparecida
+                  example: "Rua 123, Bairro X, Cidade Y"
+                registered_by:
+                  type: integer
+                  description: ID do usuário que registrou a pessoa desaparecida
+                  example: 5
+                status_id:
+                  type: integer
+                  description: Status atual da pessoa desaparecida
+                  example: 1
+                description:
+                  type: string
+                  description: Descrição adicional sobre a pessoa desaparecida
+                  example: "Usava uma camiseta vermelha e calça jeans no momento do desaparecimento"
+                first_photo:
+                  type: string
+                  description: URL da primeira foto da pessoa desaparecida
+                  example: "https://example.com/foto1.jpg"
+                second_photo:
+                  type: string
+                  description: URL da segunda foto da pessoa desaparecida
+                  example: "https://example.com/foto2.jpg"
+                third_photo:
+                  type: string
+                  description: URL da terceira foto da pessoa desaparecida
+                  example: "https://example.com/foto3.jpg"
+                fourth_photo:
+                  type: string
+                  description: URL da quarta foto da pessoa desaparecida
+                  example: "https://example.com/foto4.jpg"
+      responses:
+        200:
+          description: Pessoa desaparecida atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingPerson'
+        400:
+          description: Solicitação inválida
+        404:
+          description: Pessoa desaparecida não encontrada
+        500:
+          description: Erro interno no servidor
