@@ -59,7 +59,7 @@ const databaseConfig: DatabaseConfig = {
         port: Env.get('DB_PORT', '3306'),
         user: Env.get('DB_USER', 'root'),
         password: Env.get('DB_PASSWORD', 'computacao'),
-        database: Env.get('DB_DATABASE', 'confesta'),
+        database: Env.get('DB_DATABASE', 'volta_para_casa'),
       },
       debug: Env.get('DB_DEBUG', false),
     },
