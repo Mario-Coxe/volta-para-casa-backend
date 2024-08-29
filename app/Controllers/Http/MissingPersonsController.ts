@@ -9,7 +9,6 @@ import Ws from 'App/Services/Ws'
 
 export default class MissingPersonsController {
   public async store({ request, response, auth }: HttpContextContract) {
-    // Definir o esquema de validação para os dados
     const validationSchema = schema.create({
       name: schema.string({}, [rules.maxLength(255)]),
       age: schema.number([rules.range(0, 120)]),
@@ -19,7 +18,6 @@ export default class MissingPersonsController {
     })
 
     try {
-      // Validar os dados da requisição
       const validatedData = await request.validate({ schema: validationSchema })
 
       const dataToStore = {
@@ -27,7 +25,6 @@ export default class MissingPersonsController {
         registered_by: auth.user?.id!,
       }
 
-      // Gerenciar arquivos de fotos
       const photos = ['first_photo', 'second_photo', 'third_photo', 'fourth_photo'] as const
       for (const photo of photos) {
         const file = request.file(photo)
@@ -38,7 +35,6 @@ export default class MissingPersonsController {
             overwrite: true,
           })
 
-          // Verificar se há erros no arquivo
           if (file.errors && file.errors.length > 0) {
             return response.status(400).json({ error: `Erro ao mover o arquivo ${photo}` })
           }
@@ -47,7 +43,6 @@ export default class MissingPersonsController {
         }
       }
 
-      // Criar o registro de pessoa desaparecida
       const missingPerson = await MissingPerson.create(dataToStore)
 
       return response.created({ message: 'Criado com sucesso', missingPerson })
