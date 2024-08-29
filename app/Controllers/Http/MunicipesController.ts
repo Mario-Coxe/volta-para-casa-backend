@@ -1,7 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Municipe from 'App/Models/Municipe'
 import CreateMunicipeValidator from 'App/Validators/RegisterMunicipeValidator'
-import { EMPTY } from 'sqlite3'
 
 export default class MunicipesController {
   public async store({ request, response }: HttpContextContract) {

@@ -9,6 +9,7 @@ import Ws from 'App/Services/Ws'
 
 export default class MissingPersonsController {
   public async store({ request, response, auth }: HttpContextContract) {
+    // Definir o esquema de validação para os dados
     const validationSchema = schema.create({
       name: schema.string({}, [rules.maxLength(255)]),
       age: schema.number([rules.range(0, 120)]),
@@ -17,28 +18,43 @@ export default class MissingPersonsController {
       description: schema.string.optional({}, [rules.maxLength(1000)]),
     })
 
-    const validatedData = await request.validate({ schema: validationSchema })
+    try {
+      // Validar os dados da requisição
+      const validatedData = await request.validate({ schema: validationSchema })
 
-    const dataToStore = {
-      ...validatedData,
-      registered_by: auth.user?.id!,
-    }
-
-    const photos = ['first_photo', 'second_photo', 'third_photo', 'fourth_photo'] as const
-    for (const photo of photos) {
-      const file = request.file(photo)
-      if (file) {
-        const fileName = `${Date.now()}-${file.clientName}`
-        await file.move(Application.publicPath('uploads'), {
-          name: fileName,
-          overwrite: true,
-        })
-        dataToStore[photo] = fileName
+      const dataToStore = {
+        ...validatedData,
+        registered_by: auth.user?.id!,
       }
-    }
-    const missingPerson = await MissingPerson.create(dataToStore)
 
-    return response.created({ message: 'Criado com sucesso', missingPerson })
+      // Gerenciar arquivos de fotos
+      const photos = ['first_photo', 'second_photo', 'third_photo', 'fourth_photo'] as const
+      for (const photo of photos) {
+        const file = request.file(photo)
+        if (file) {
+          const fileName = `${Date.now()}-${file.clientName}`
+          await file.move(Application.tmpPath('uploads'), {
+            name: fileName,
+            overwrite: true,
+          })
+
+          // Verificar se há erros no arquivo
+          if (file.errors && file.errors.length > 0) {
+            return response.status(400).json({ error: `Erro ao mover o arquivo ${photo}` })
+          }
+
+          dataToStore[photo] = fileName
+        }
+      }
+
+      // Criar o registro de pessoa desaparecida
+      const missingPerson = await MissingPerson.create(dataToStore)
+
+      return response.created({ message: 'Criado com sucesso', missingPerson })
+    } catch (error) {
+      console.error('Erro ao criar pessoa desaparecida:', error)
+      return response.status(500).json({ error: 'Erro interno do servidor' })
+    }
   }
 
   public async index({ request, response }: HttpContextContract) {
