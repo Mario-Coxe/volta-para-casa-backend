@@ -20,6 +20,7 @@ Route.group(() => {
     Route.get('/search', 'MunicipesController.search')
   }).prefix('municipes')
 
+
   //locations
   Route.group(() => {
     Route.post('/', 'LocationsController.store').middleware('auth')
@@ -27,6 +28,7 @@ Route.group(() => {
     Route.get('/:id', 'LocationsController.show')
   }).prefix('locations')
 
+  
   //missing people
   Route.group(() => {
     Route.post('', 'MissingPersonsController.store').middleware('auth')
