@@ -5,6 +5,8 @@ import { GetAllMunicipesUseCase } from 'App/Application/useCases/Municipes/GetAl
 import { SearchMunicipeUseCase } from 'App/Application/useCases/Municipes/SearchMunicipeUseCase'
 import { MunicipeRepositoryImpl } from '../Repositories/MunicipeRepositoryImpl'
 
+
+
 export default class MunicipesController {
   private municipeRepository: MunicipeRepositoryImpl
 
