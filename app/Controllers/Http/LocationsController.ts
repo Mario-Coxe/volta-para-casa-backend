@@ -17,15 +17,11 @@ export default class LocationsController {
     const createLocationUseCase = new CreateLocationUseCase(this.locationRepository)
     //const validatedData = await request.validate(CreateLocationValidator)
     const data = request.only(['name', 'municipe_id', 'longitude', 'latitude'])
-
-    console.log(data)
-
     const location = await createLocationUseCase.execute(data)
     return response.created({ message: 'Localização criada', location })
   }
 
   public async index({ request, response }: HttpContextContract) {
-    console.log('texto 22')
     const getAllLocationsUseCase = new GetAllLocationsUseCase(this.locationRepository)
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)

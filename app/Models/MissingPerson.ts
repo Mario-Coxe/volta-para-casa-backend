@@ -17,7 +17,7 @@ export default class MissingPerson extends BaseModel {
   public gender: string
 
   @column()
-  public lastLocation: string
+  public last_location: string
 
   @column()
   public registered_by: number
