@@ -3,4 +3,5 @@ export interface LocationRepository {
   create(data: Partial<Location>): Promise<Location>
   findAll(limit: number, page: number): Promise<Location[]>
   searchByName(name: string): Promise<Location[]>
+  findById(id: number): Promise<Location[]>
 }

@@ -3,23 +3,21 @@ import LocationModal from 'App/Models/Location'
 import { Location } from 'App/Domain/Enteties/Location'
 import { DateTime } from 'luxon'
 
-
 export class LocationRepositoryImpl implements LocationRepository {
   async create(data: Partial<Location>): Promise<Location> {
-    const municipe = await LocationModal.create({
+    const location = await LocationModal.create({
       name: data.name,
       municipe_id: data.municipe_id,
+      longitude: data.longitude,
+      latitude: data.latitude,
       createdAt: data.createdAt || DateTime.now(),
       updatedAt: data.updatedAt || DateTime.now(),
     })
-    return municipe.toJSON() as Location
+    return location.toJSON() as Location
   }
 
   async findAll(limit: number, page: number): Promise<Location[]> {
-    const locations = await LocationModal.query()
-      .preload('municipe')
-      .paginate(page, limit)
-
+    const locations = await LocationModal.query().preload('municipe').paginate(page, limit)
     return locations.toJSON().data as Location[]
   }
 
@@ -28,6 +26,11 @@ export class LocationRepositoryImpl implements LocationRepository {
       .where('name', 'like', `%${name}%`)
       .preload('municipe')
 
-    return locations as Location[]
+    return locations as [] as Location[]
+  }
+
+  async findById(id: number): Promise<Location[]> {
+    const locations = await LocationModal.query().where('id', id).preload('municipe')
+    return locations as [] as Location[]
   }
 }
