@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-export class MissingPerson {
+export class MissingPersonEntetie {
   constructor(
     public id: number,
     public name: string,

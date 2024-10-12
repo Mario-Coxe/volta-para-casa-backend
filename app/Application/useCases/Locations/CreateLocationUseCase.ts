@@ -1,5 +1,5 @@
 // app/Application/UseCases/Municipes/CreateMunicipeUseCase.ts
-import { Location } from 'App/Domain/Enteties/Location'
+import { LocationEntetie } from 'App/Domain/Enteties/Location'
 import { LocationRepository } from 'app/Domain/Repositories/LocationRepository'
 
 interface CreateLocationRequest {
@@ -11,7 +11,7 @@ interface CreateLocationRequest {
 
 export class CreateLocationUseCase {
   constructor(private locationRepository: LocationRepository) {}
-  async execute(data: CreateLocationRequest): Promise<Location> {
+  async execute(data: CreateLocationRequest): Promise<LocationEntetie> {
     return this.locationRepository.create(data)
   }
 }

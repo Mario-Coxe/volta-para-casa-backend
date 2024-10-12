@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-export class Location {
+export class LocationEntetie {
   constructor(
     public id: number,
     public name: string,

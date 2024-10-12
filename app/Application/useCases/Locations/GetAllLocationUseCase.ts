@@ -1,10 +1,10 @@
-import { Location } from 'App/Domain/Enteties/Location'
+import { LocationEntetie } from 'App/Domain/Enteties/Location'
 import { LocationRepository } from 'app/Domain/Repositories/LocationRepository'
 
 export class GetAllLocationsUseCase {
   constructor(private locationRepository: LocationRepository) {}
 
-  async execute(limit: number, page: number): Promise<Location[]> {
+  async execute(limit: number, page: number): Promise<LocationEntetie[]> {
     return this.locationRepository.findAll(limit, page)
   }
 }

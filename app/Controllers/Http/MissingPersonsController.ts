@@ -7,24 +7,27 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import MissingPersonFollower from 'App/Models/MissingPersonFollower'
 import Ws from 'App/Services/Ws'
 
+import { CreateMissingPersonUseCase } from 'App/Application/useCases/MissingPersons/CreateMissingPersonUseCase'
+import { MissingPersonRepositoryImpl } from '../Repositories/MissingPersonRepositoryImpl'
+
 export default class MissingPersonsController {
+  private createMissingPersonUseCase: CreateMissingPersonUseCase
+  constructor() {
+    const missingPersonRepository = new MissingPersonRepositoryImpl()
+    this.createMissingPersonUseCase = new CreateMissingPersonUseCase(missingPersonRepository)
+  }
+
   public async store({ request, response, auth }: HttpContextContract) {
-    const validationSchema = schema.create({
-      name: schema.string({}, [rules.maxLength(255)]),
-      age: schema.number([rules.range(0, 120)]),
-      gender: schema.string({}, [rules.maxLength(50)]),
-      last_location: schema.string({}, [rules.maxLength(255)]),
-      description: schema.string.optional({}, [rules.maxLength(1000)]),
-    })
-
     try {
-      const validatedData = await request.validate({ schema: validationSchema })
-
+      const data = request.only(['name', 'age', 'gender', 'last_location', 'description'])
       const dataToStore = {
-        ...validatedData,
+        ...data,
+        first_photo: '',
+        second_photo: '',
+        third_photo: '',
+        fourth_photo: '',
         registered_by: auth.user?.id!,
       }
-
       const photos = ['first_photo', 'second_photo', 'third_photo', 'fourth_photo'] as const
       for (const photo of photos) {
         const file = request.file(photo)
@@ -38,12 +41,11 @@ export default class MissingPersonsController {
           if (file.errors && file.errors.length > 0) {
             return response.status(400).json({ error: `Erro ao mover o arquivo ${photo}` })
           }
-
           dataToStore[photo] = fileName
         }
       }
 
-      const missingPerson = await MissingPerson.create(dataToStore)
+      const missingPerson = await this.createMissingPersonUseCase.execute(dataToStore)
 
       return response.created({ message: 'Criado com sucesso', missingPerson })
     } catch (error) {
@@ -140,6 +142,8 @@ export default class MissingPersonsController {
     return response.ok({ message: 'Pessoa desaparecida excluída com sucesso' })
   }
 
+  /*
+
   public async follow({ params, auth, response }: HttpContextContract) {
     const existingFollower = await MissingPersonFollower.query()
       .where('missing_person_id', params.id)
@@ -174,4 +178,6 @@ export default class MissingPersonsController {
 
     return response.ok({ message: 'Deixou de seguir' })
   }
+
+  */
 }

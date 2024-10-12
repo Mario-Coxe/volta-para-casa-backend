@@ -1,20 +1,24 @@
-// app/Application/UseCases/Municipes/CreateMunicipeUseCase.ts
-import { Location } from 'App/Domain/Enteties/Location'
-import { LocationRepository } from 'app/Domain/Repositories/LocationRepository'
+import {MissingPersonEntetie} from '../../../Domain/Enteties/MissingPerson'
+import { MissingPersonRepository } from '../../../Domain/Repositories/MissingPersonRepository'
 
-interface CreateLocationRequest {
+interface CreateMissingPersonRequest {
   name: string
-  municipe_id: number
-  latitude: string
-  longitude: string
+  age: number
+  gender: string
+  last_location: string
+  registered_by: number
+  description: string
+  first_photo: string
+  status_id?: number
+  second_photo?: string
+  third_photo?: string
+  fourth_photo?: string
 }
 
-export class CreateLocationUseCase {
-  constructor(private locationRepository: LocationRepository) {}
-  async execute(data: CreateLocationRequest): Promise<Location> {
-    return this.locationRepository.create(data)
+export class CreateMissingPersonUseCase {
+  constructor(private missingPersonRepository: MissingPersonRepository) {}
+  async execute(data: CreateMissingPersonRequest): Promise<MissingPersonEntetie> {
+    return this.missingPersonRepository.create(data)
   }
 }
 
-
-//CreateMissingPersonUseCase

@@ -1,7 +1,7 @@
-import { Location } from '../Enteties/Location'
+import { LocationEntetie } from '../Enteties/Location'
 export interface LocationRepository {
-  create(data: Partial<Location>): Promise<Location>
-  findAll(limit: number, page: number): Promise<Location[]>
-  searchByName(name: string): Promise<Location[]>
-  findById(id: number): Promise<Location[]>
+  create(data: Partial<LocationEntetie>): Promise<LocationEntetie>
+  findAll(limit: number, page: number): Promise<LocationEntetie[]>
+  searchByName(name: string): Promise<LocationEntetie[]>
+  findById(id: number): Promise<LocationEntetie[]>
 }
