@@ -23,6 +23,7 @@ export class MissingPersonRepositoryImpl implements MissingPersonRepository {
     })
     return missingPerson.toJSON() as MissingPersonEntetie
   }
+  
   async findAll(limit: number, page: number): Promise<MissingPersonEntetie[]> {
     const missingPeople = await MissingPerson.query()
       .preload('user')

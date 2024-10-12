@@ -9,11 +9,17 @@ import Ws from 'App/Services/Ws'
 
 import { CreateMissingPersonUseCase } from 'App/Application/useCases/MissingPersons/CreateMissingPersonUseCase'
 import { MissingPersonRepositoryImpl } from '../Repositories/MissingPersonRepositoryImpl'
+import { GetAllMissingPersonUseCase } from 'App/Application/useCases/MissingPersons/GetAllMissingPersonUseCase'
+
 
 export default class MissingPersonsController {
   private createMissingPersonUseCase: CreateMissingPersonUseCase
+  private missingPersonRepository: MissingPersonRepositoryImpl
+
+
   constructor() {
     const missingPersonRepository = new MissingPersonRepositoryImpl()
+    this.missingPersonRepository = new MissingPersonRepositoryImpl()
     this.createMissingPersonUseCase = new CreateMissingPersonUseCase(missingPersonRepository)
   }
 
@@ -54,18 +60,16 @@ export default class MissingPersonsController {
     }
   }
 
+
   public async index({ request, response }: HttpContextContract) {
+    const getAllMissingPersonUseCase = new GetAllMissingPersonUseCase(this.missingPersonRepository)
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
-
-    const missingPersons = await MissingPerson.query()
-      .preload('user')
-      .preload('status')
-      .orderBy('created_at', 'desc')
-      .paginate(page, limit)
-
-    return response.ok(missingPersons)
+    const data = await getAllMissingPersonUseCase.execute(limit, page)
+    return response.ok(data)
   }
+
+
 
   public async show({ params, response, auth }: HttpContextContract) {
     try {
