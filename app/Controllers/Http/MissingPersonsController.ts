@@ -11,11 +11,9 @@ import { CreateMissingPersonUseCase } from 'App/Application/useCases/MissingPers
 import { MissingPersonRepositoryImpl } from '../Repositories/MissingPersonRepositoryImpl'
 import { GetAllMissingPersonUseCase } from 'App/Application/useCases/MissingPersons/GetAllMissingPersonUseCase'
 
-
 export default class MissingPersonsController {
   private createMissingPersonUseCase: CreateMissingPersonUseCase
   private missingPersonRepository: MissingPersonRepositoryImpl
-
 
   constructor() {
     const missingPersonRepository = new MissingPersonRepositoryImpl()
@@ -60,16 +58,15 @@ export default class MissingPersonsController {
     }
   }
 
-
   public async index({ request, response }: HttpContextContract) {
     const getAllMissingPersonUseCase = new GetAllMissingPersonUseCase(this.missingPersonRepository)
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
-    const data = await getAllMissingPersonUseCase.execute(limit, page)
+    const sortBy = request.input('sortBy', 'created_at')
+    const sortDirection = request.input('sortDirection', 'asc')
+    const data = await getAllMissingPersonUseCase.execute(limit, page, sortBy, sortDirection)
     return response.ok(data)
   }
-
-
 
   public async show({ params, response, auth }: HttpContextContract) {
     try {

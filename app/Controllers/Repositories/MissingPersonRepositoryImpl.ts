@@ -23,11 +23,12 @@ export class MissingPersonRepositoryImpl implements MissingPersonRepository {
     })
     return missingPerson.toJSON() as MissingPersonEntetie
   }
-  
-  async findAll(limit: number, page: number): Promise<MissingPersonEntetie[]> {
+
+  async findAll(limit: number, page: number, sortBy: string, sortDirection: 'desc' | 'asc'): Promise<MissingPersonEntetie[]> {
     const missingPeople = await MissingPerson.query()
       .preload('user')
       .preload('status')
+      .orderBy(sortBy, sortDirection)
       .paginate(page, limit)
     return missingPeople.toJSON().data as MissingPersonEntetie[]
   }

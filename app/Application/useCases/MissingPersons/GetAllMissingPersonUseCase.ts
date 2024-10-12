@@ -3,7 +3,7 @@ import { MissingPersonRepository } from '../../../Domain/Repositories/MissingPer
 
 export class GetAllMissingPersonUseCase {
   constructor(private missingPersonRepository: MissingPersonRepository) {}
-  async execute(limit: number, page: number): Promise<MissingPersonEntetie[]> {
-    return this.missingPersonRepository.findAll(limit, page)
+  async execute(limit: number, page: number, sortBy: string, sortDirection: 'asc' | 'desc'): Promise<MissingPersonEntetie[]> {
+    return this.missingPersonRepository.findAll(limit, page, sortBy, sortDirection)
   }
 }

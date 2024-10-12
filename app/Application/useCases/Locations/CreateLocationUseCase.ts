@@ -1,4 +1,3 @@
-// app/Application/UseCases/Municipes/CreateMunicipeUseCase.ts
 import { LocationEntetie } from 'App/Domain/Enteties/Location'
 import { LocationRepository } from 'app/Domain/Repositories/LocationRepository'
 
