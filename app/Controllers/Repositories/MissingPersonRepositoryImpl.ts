@@ -18,13 +18,20 @@ export class MissingPersonRepositoryImpl implements MissingPersonRepository {
       third_photo: data.third_photo,
       fourth_photo: data.fourth_photo,
       status_id: data.status_id,
+      municipe_id: data.municipe_id,
+      disappearance_date: data.disappearance_date,
       createdAt: data.createdAt || DateTime.now(),
       updatedAt: data.updatedAt || DateTime.now(),
     })
     return missingPerson.toJSON() as MissingPersonEntetie
   }
 
-  async findAll(limit: number, page: number, sortBy: string, sortDirection: 'desc' | 'asc'): Promise<MissingPersonEntetie[]> {
+  async findAll(
+    limit: number,
+    page: number,
+    sortBy: string,
+    sortDirection: 'desc' | 'asc'
+  ): Promise<MissingPersonEntetie[]> {
     const missingPeople = await MissingPerson.query()
       .preload('user')
       .preload('status')

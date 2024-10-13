@@ -23,7 +23,15 @@ export default class MissingPersonsController {
 
   public async store({ request, response, auth }: HttpContextContract) {
     try {
-      const data = request.only(['name', 'age', 'gender', 'last_location', 'description'])
+      const data = request.only([
+        'name',
+        'age',
+        'gender',
+        'last_location',
+        'description',
+        'municipe_id',
+        'disappearance_date',
+      ])
       const dataToStore = {
         ...data,
         first_photo: '',
@@ -63,7 +71,7 @@ export default class MissingPersonsController {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
     const sortBy = request.input('sortBy', 'created_at')
-    const sortDirection = request.input('sortDirection', 'asc')
+    const sortDirection = request.input('sortDirection', 'desc')
     const data = await getAllMissingPersonUseCase.execute(limit, page, sortBy, sortDirection)
     return response.ok(data)
   }

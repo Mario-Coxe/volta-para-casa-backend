@@ -2,6 +2,8 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import StateMissingPerson from './EstadoMissingPerson'
+import Municipe from './Municipe'
+
 export default class MissingPerson extends BaseModel {
   public static table = 'missing_persons'
   @column({ isPrimary: true })
@@ -25,6 +27,9 @@ export default class MissingPerson extends BaseModel {
   @column()
   public status_id: number
 
+  @column()
+  public municipe_id: number
+
   @belongsTo(() => User, {
     foreignKey: 'registered_by',
     localKey: 'id',
@@ -36,6 +41,12 @@ export default class MissingPerson extends BaseModel {
     localKey: 'id',
   })
   public status: BelongsTo<typeof StateMissingPerson>
+
+  @belongsTo(() => Municipe, {
+    foreignKey: 'municipe_id',
+    localKey: 'id',
+  })
+  public municipe: BelongsTo<typeof Municipe>
 
   @column()
   public description: string
@@ -54,6 +65,9 @@ export default class MissingPerson extends BaseModel {
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
+
+  @column.dateTime({})
+  public disappearance_date: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime

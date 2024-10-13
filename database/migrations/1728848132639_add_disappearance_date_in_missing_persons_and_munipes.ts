@@ -1,24 +1,26 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class extends BaseSchema {
+export default class AddDisappearanceDateToMissingPersons extends BaseSchema {
   protected tableName = 'missing_persons'
 
   public async up() {
     this.schema.table(this.tableName, (table) => {
+      table.timestamp('disappearance_date').nullable().after('last_location')
       table
-        .integer('status_id')
+        .integer('municipe_id')
         .unsigned()
-        .notNullable()
-        .defaultTo(1)
+        .nullable()
         .references('id')
-        .inTable('estado_missing_people')
+        .inTable('municipes')
         .onDelete('CASCADE')
+        .after('gender')
     })
   }
 
   public async down() {
     this.schema.table(this.tableName, (table) => {
-      table.dropColumn('status_id')
+      table.dropColumn('disappearance_date')
+      table.dropColumn('municipe_id')
     })
   }
 }
