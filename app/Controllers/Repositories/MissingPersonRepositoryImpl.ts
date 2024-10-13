@@ -35,6 +35,12 @@ export class MissingPersonRepositoryImpl implements MissingPersonRepository {
     const missingPeople = await MissingPerson.query()
       .preload('user')
       .preload('status')
+      .preload('municipe', (municipeQuery) => {
+        municipeQuery.preload('province')
+      })
+      .preload('followers', (followerQuery) => {
+        followerQuery.preload('user')
+      })
       .orderBy(sortBy, sortDirection)
       .paginate(page, limit)
     return missingPeople.toJSON().data as MissingPersonEntetie[]

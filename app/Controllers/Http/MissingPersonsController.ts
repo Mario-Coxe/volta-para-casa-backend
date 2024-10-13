@@ -151,7 +151,7 @@ export default class MissingPersonsController {
     return response.ok({ message: 'Pessoa desaparecida excluída com sucesso' })
   }
 
-  /*
+
 
   public async follow({ params, auth, response }: HttpContextContract) {
     const existingFollower = await MissingPersonFollower.query()
@@ -160,7 +160,7 @@ export default class MissingPersonsController {
       .first()
 
     if (existingFollower) {
-      return response.ok({ message: 'Já está em observação' })
+      return response.ok({ message: 'Já está seguindo' })
     }
 
     await MissingPersonFollower.create({
@@ -187,6 +187,4 @@ export default class MissingPersonsController {
 
     return response.ok({ message: 'Deixou de seguir' })
   }
-
-  */
 }
