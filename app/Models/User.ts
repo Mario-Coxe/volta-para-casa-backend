@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { BaseModel, column, beforeSave } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, beforeSave, BelongsTo, belongsTo } from '@ioc:Adonis/Lucid/Orm'
+import Municipe from './Municipe';
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -11,6 +12,17 @@ export default class User extends BaseModel {
 
   @column()
   public phone_number: string
+
+  @column()
+  public municipe_id: number
+
+
+  @belongsTo(() => Municipe, {
+    foreignKey: '',
+    localKey: 'id'
+  })
+  public municipe: BelongsTo<typeof Municipe>
+
 
   @column({ serializeAs: null })
   public password: string
