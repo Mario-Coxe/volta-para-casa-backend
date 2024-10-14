@@ -28,13 +28,14 @@ Route.group(() => {
     Route.get('/:id', 'LocationsController.show')
   }).prefix('locations')
 
-  
+
   //missing people
   Route.group(() => {
     Route.post('', 'MissingPersonsController.store').middleware('auth')
     Route.post('/follow/:id', 'MissingPersonsController.follow').middleware('auth')
     Route.post('/unfollow/:id', 'MissingPersonsController.unfollow').middleware('auth')
     Route.get('/', 'MissingPersonsController.index')
+    Route.get('/authenticated', 'MissingPersonsController.indexAuth').middleware('auth')
     Route.get('/:id', 'MissingPersonsController.show').middleware('auth')
     Route.put('/:id', 'MissingPersonsController.update').middleware('auth')
     Route.delete('/:id', 'MissingPersonsController.destroy').middleware('auth')

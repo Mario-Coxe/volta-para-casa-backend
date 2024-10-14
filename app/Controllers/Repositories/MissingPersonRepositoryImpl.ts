@@ -3,7 +3,7 @@ import MissingPersonView from 'App/Models/MissingPersonView'
 import { DateTime } from 'luxon'
 import { MissingPersonEntetie } from '../../Domain/Enteties/MissingPerson'
 import { MissingPersonRepository } from 'App/Domain/Repositories/MissingPersonRepository'
-
+import User from 'App/Models/User'
 export class MissingPersonRepositoryImpl implements MissingPersonRepository {
   async create(data: Partial<MissingPersonEntetie>): Promise<MissingPersonEntetie> {
     const missingPerson = await MissingPerson.create({
@@ -30,9 +30,10 @@ export class MissingPersonRepositoryImpl implements MissingPersonRepository {
     limit: number,
     page: number,
     sortBy: string,
-    sortDirection: 'desc' | 'asc'
+    sortDirection: 'desc' | 'asc',
+    userId?: number | undefined
   ): Promise<MissingPersonEntetie[]> {
-    const missingPeople = await MissingPerson.query()
+    const query = MissingPerson.query()
       .preload('user')
       .preload('status')
       .preload('municipe', (municipeQuery) => {
@@ -41,8 +42,14 @@ export class MissingPersonRepositoryImpl implements MissingPersonRepository {
       .preload('followers', (followerQuery) => {
         followerQuery.preload('user')
       })
-      .orderBy(sortBy, sortDirection)
-      .paginate(page, limit)
+
+    if (userId && userId != undefined) {
+      const user = await User.findOrFail(userId)
+      if (user.municipe_id) {
+        query.orderByRaw(`CASE WHEN municipe_id = ${user.municipe_id} THEN 0 ELSE 1 END`)
+      }
+    }
+    const missingPeople = await query.orderBy(sortBy, sortDirection).paginate(page, limit)
     return missingPeople.toJSON().data as MissingPersonEntetie[]
   }
 

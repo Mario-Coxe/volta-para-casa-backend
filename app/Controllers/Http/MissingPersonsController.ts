@@ -21,7 +21,7 @@ export default class MissingPersonsController {
     this.createMissingPersonUseCase = new CreateMissingPersonUseCase(missingPersonRepository)
   }
 
-  public async store({ request, response, auth }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     try {
       const data = request.only([
         'name',
@@ -66,13 +66,37 @@ export default class MissingPersonsController {
     }
   }
 
-  public async index({ request, response }: HttpContextContract) {
+  public async index({ request, response, }: HttpContextContract) {
     const getAllMissingPersonUseCase = new GetAllMissingPersonUseCase(this.missingPersonRepository)
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
     const sortBy = request.input('sortBy', 'created_at')
     const sortDirection = request.input('sortDirection', 'desc')
-    const data = await getAllMissingPersonUseCase.execute(limit, page, sortBy, sortDirection)
+    const data = await getAllMissingPersonUseCase.execute(
+      limit,
+      page,
+      sortBy,
+      sortDirection,
+      undefined
+    )
+    return response.ok(data)
+  }
+
+
+
+  public async indexAuth({ request, response, auth }: HttpContextContract) {
+    const getAllMissingPersonUseCase = new GetAllMissingPersonUseCase(this.missingPersonRepository)
+    const page = request.input('page', 1)
+    const limit = request.input('limit', 10)
+    const sortBy = request.input('sortBy', 'created_at')
+    const sortDirection = request.input('sortDirection', 'desc')
+    const data = await getAllMissingPersonUseCase.execute(
+      limit,
+      page,
+      sortBy,
+      sortDirection,
+      auth.user!.id
+    )
     return response.ok(data)
   }
 
@@ -150,8 +174,6 @@ export default class MissingPersonsController {
     await missingPerson.delete()
     return response.ok({ message: 'Pessoa desaparecida excluída com sucesso' })
   }
-
-
 
   public async follow({ params, auth, response }: HttpContextContract) {
     const existingFollower = await MissingPersonFollower.query()
