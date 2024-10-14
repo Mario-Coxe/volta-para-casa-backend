@@ -17,7 +17,9 @@ Route.group(() => {
   Route.group(() => {
     Route.post('/', 'MunicipesController.store').middleware('auth')
     Route.get('/', 'MunicipesController.index')
-    Route.get('/search', 'MunicipesController.search')
+    Route.get('/get-municipes-by-province-id', 'MunicipesController.findByProvinceId')
+
+    //Route.get('/search', 'MunicipesController.search')
   }).prefix('municipes')
 
 

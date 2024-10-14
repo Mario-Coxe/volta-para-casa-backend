@@ -1,7 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import MissingPerson from 'App/Models/MissingPerson'
 import Application from '@ioc:Adonis/Core/Application'
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
+//import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import MissingPersonView from 'App/Models/MissingPersonView'
 import Database from '@ioc:Adonis/Lucid/Database'
 import MissingPersonFollower from 'App/Models/MissingPersonFollower'
@@ -99,6 +99,7 @@ export default class MissingPersonsController {
     )
     return response.ok(data)
   }
+  
 
   public async show({ params, response, auth }: HttpContextContract) {
     try {

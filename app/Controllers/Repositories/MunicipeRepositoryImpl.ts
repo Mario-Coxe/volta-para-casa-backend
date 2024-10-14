@@ -15,10 +15,7 @@ export class MunicipeRepositoryImpl implements MunicipeRepository {
   }
 
   async findAll(limit: number, page: number): Promise<MunicipeEntetie[]> {
-    const municipes = await MunicipeModel.query()
-      .preload('province')
-      .paginate(page, limit)
-
+    const municipes = await MunicipeModel.query().preload('province').paginate(page, limit)
     return municipes.toJSON().data as MunicipeEntetie[]
   }
 
@@ -26,7 +23,13 @@ export class MunicipeRepositoryImpl implements MunicipeRepository {
     const municipes = await MunicipeModel.query()
       .where('name', 'like', `%${name}%`)
       .preload('province')
+    return municipes as unknown as MunicipeEntetie[]
+  }
 
+  async findMunicipeByProvinceId(provinceId: number): Promise<MunicipeEntetie[]> {
+    const municipes = await MunicipeModel.query()
+      .where('province_id', provinceId)
+      .preload('province')
     return municipes as unknown as MunicipeEntetie[]
   }
 }
