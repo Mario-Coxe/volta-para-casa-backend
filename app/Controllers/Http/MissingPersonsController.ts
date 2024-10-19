@@ -21,7 +21,7 @@ export default class MissingPersonsController {
     this.createMissingPersonUseCase = new CreateMissingPersonUseCase(missingPersonRepository)
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, response, auth }: HttpContextContract) {
     try {
       const data = request.only([
         'name',
