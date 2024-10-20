@@ -21,6 +21,13 @@ export default class UsersRegisterValidator {
       rules.maxLength(20),
       rules.regex(/[a-zA-Z0-9]/),
     ]),
+    municipe_id: schema.number([
+      rules.required(),
+      rules.exists({
+        table: 'municipes',
+        column: 'id',
+      }),
+    ]),
   })
 
   public messages: CustomMessages = {
@@ -33,5 +40,7 @@ export default class UsersRegisterValidator {
     'password.minLength': 'A senha deve ter no mínimo 6 caracteres.',
     'password.maxLength': 'A senha deve ter no máximo 20 caracteres.',
     'password.regex': 'A senha deve conter apenas letras maiúsculas, minúsculas e números.',
+    'municipe_id.required': 'O ID do município é obrigatório.',
+    'municipe_id.exists': 'O ID do município não existe.',
   }
 }
