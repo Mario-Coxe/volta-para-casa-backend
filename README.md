@@ -47,8 +47,8 @@ Siga os passos abaixo para rodar o projeto localmente.
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/Mario-Coxe/missing-persons-finder.git
-   cd missing-persons-finder
+   git clone https://github.com/Mario-Coxe/VOLTAA_BACKEND.git
+   cd VOLTAA_BACKEND
    ```
 
 2. Instale as dependências:
@@ -65,7 +65,7 @@ Siga os passos abaixo para rodar o projeto localmente.
    cp .env.example .env
    ```
 
-4. Configure o banco de dados no `.env` com suas credenciais do PostgreSQL.
+4. Configure o banco de dados no `.env` com suas credenciais do MySQL.
 
 5. Execute as migrations:
 
@@ -103,9 +103,6 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 Se tiver alguma dúvida ou sugestão, sinta-se à vontade para abrir uma **Issue** ou entrar em contato:
 
-- Email: [seu-email@exemplo.com](mailto:seu-email@exemplo.com)
-- GitHub: [seu-usuario](https://github.com/seu-usuario)
-
+- Email: [seu-email@exemplo.com](mailto:mariocoxedev@gmail.com)
 ---
 
-Isso é apenas uma base inicial. Você pode adicionar seções específicas, como links para testes unitários, diagramas de arquitetura, ou um exemplo de fluxo de trabalho para desenvolvedores que querem contribuir.
