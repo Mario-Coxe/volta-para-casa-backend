@@ -13,8 +13,8 @@ export default class AuthController {
     try {
       const data = await request.validate(UsersRegisterValidator)
 
-          const user = await User.create(data)
-     // console.log("registado", user)
+      const user = await User.create(data)
+      // console.log("registado", user)
       return response.ok({ message: 'Usuário Registrado', user })
     } catch (error) {
       if (error.code === 'E_VALIDATION_FAILURE') {

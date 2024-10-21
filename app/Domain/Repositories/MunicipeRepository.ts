@@ -1,4 +1,3 @@
-// app/Domain/Repositories/MunicipeRepository.ts
 import { MunicipeEntetie } from '../Enteties/Municipe'
 
 export interface MunicipeRepository {

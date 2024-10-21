@@ -12,7 +12,6 @@ export default class Municipe extends BaseModel {
   @column()
   public provinceId: number
 
-
   @belongsTo(() => Province, {
     foreignKey: 'provinceId',
     localKey: 'id'
