@@ -1,63 +1,111 @@
-Aqui está uma descrição que você pode utilizar no repositório do GitHub para documentar a arquitetura e os princípios usados no projeto:
+# VOLTAA
+
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Contributors Welcome](https://img.shields.io/badge/contributors-welcome-brightgreen)](CONTRIBUTING.md)
+
+## 📝 Sobre o Projeto
+
+**VOLTAA** é uma aplicação desenvolvida com AdonisJS v5 que ajuda a localizar pessoas desaparecidas. A plataforma permite que usuários registrem casos, sigam investigações, façam comentários e recebam atualizações.
+
+### Funcionalidades
+
+- 🧑‍🤝‍🧑 **Registro de Usuários**: Criação de conta para participar da plataforma.
+- 🔐 **Login**: Acesso à plataforma para gerenciar e acompanhar casos.
+- 📃 **Listagem de Pessoas Desaparecidas**: Visualização de todos os casos registrados.
+- 📝 **Registrar Pessoas Desaparecidas**: Permite que os usuários criem um novo registro de pessoa desaparecida.
+- 👁️ **Seguir Casos**: Usuários podem observar e seguir casos de interesse para receber notificações.
+- 💬 **Comentar em Casos**: Participação ativa com comentários em casos de pessoas desaparecidas.
+
+## 🚀 Tecnologias
+
+Este projeto é construído utilizando as seguintes tecnologias:
+
+- [AdonisJS v5](https://adonisjs.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Swagger](https://swagger.io/) (para documentação de API)
+- [MySQL](https://www.mysql.com/) (banco de dados)
+
+## 📄 Documentação da API
+
+Toda a API está documentada com o **Swagger**. Para acessar a documentação e testar os endpoints:
+
+1. Execute o projeto localmente (veja a seção de instalação abaixo).
+2. Acesse: `http://localhost:3333/docs` para ver e interagir com a API.
+
+## 🛠️ Instalação
+
+Siga os passos abaixo para rodar o projeto localmente.
+
+### Pré-requisitos
+
+- Node.js (>= 14.x)
+- PostgreSQL
+- AdonisJS CLI
+
+### Passos
+
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/Mario-Coxe/missing-persons-finder.git
+   cd missing-persons-finder
+   ```
+
+2. Instale as dependências:
+
+   ```bash
+   npm install
+   ```
+
+3. Configure as variáveis de ambiente:
+
+   Crie um arquivo `.env` com base no `.env.example`:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Configure o banco de dados no `.env` com suas credenciais do PostgreSQL.
+
+5. Execute as migrations:
+
+   ```bash
+   node ace migration:run
+   ```
+
+6. Inicie o servidor:
+
+   ```bash
+   node ace serve --watch
+   ```
+
+Agora, a aplicação estará rodando em `http://localhost:3333`.
+
+## 💡 Como Contribuir
+
+Contribuições são super bem-vindas! Siga os passos abaixo para colaborar:
+
+1. Faça um fork do projeto.
+2. Crie uma nova branch com a sua feature ou correção: `git checkout -b minha-feature`.
+3. Faça commit das suas mudanças: `git commit -m 'Adicionando nova feature'`.
+4. Envie para o branch principal: `git push origin minha-feature`.
+5. Crie um **Pull Request** explicando a sua mudança.
+
+### Guia de Contribuição
+
+Veja mais detalhes no [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## 🛡️ Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 📞 Contato
+
+Se tiver alguma dúvida ou sugestão, sinta-se à vontade para abrir uma **Issue** ou entrar em contato:
+
+- Email: [seu-email@exemplo.com](mailto:seu-email@exemplo.com)
+- GitHub: [seu-usuario](https://github.com/seu-usuario)
 
 ---
 
-## Sistema de Procura de Pessoas Desaparecidas
-
-Este projeto é um sistema de gerenciamento e busca de pessoas desaparecidas, desenvolvido utilizando AdonisJS e baseado em princípios de **Arquitetura Limpa** (Clean Architecture), **Domain-Driven Design (DDD)**, **SOLID**, e o **padrão de repositório**. O sistema tem como objetivo garantir uma aplicação escalável, modular e fácil de manter.
-
-### Arquitetura e Padrões Adotados
-
-#### 1. **Arquitetura Limpa**
-A Arquitetura Limpa é o princípio central deste projeto, permitindo a separação de responsabilidades em diferentes camadas. As camadas incluem:
-
-- **Domínio**: Contém as regras de negócio e as entidades do sistema, representando o coração da aplicação.
-- **Infraestrutura (Repositórios)**: Lida com a implementação da persistência de dados, utilizando o ORM Lucid do AdonisJS.
-- **Interface (Controllers)**: Responsável pela interação entre os usuários e o sistema, manipulando as requisições HTTP.
-
-Esse design garante que a lógica de negócios esteja desacoplada dos frameworks e que as dependências fluam de fora para dentro, garantindo maior flexibilidade e testabilidade.
-
-#### 2. **Domain-Driven Design (DDD)**
-A abordagem DDD é utilizada para modelar o sistema de acordo com o domínio de negócio. Os principais conceitos de DDD aplicados incluem:
-
-- **Entidades**: Representam objetos do domínio com identidade única (ex.: `Municipe`), contendo os dados e comportamentos relacionados.
-- **Repositórios**: São interfaces que encapsulam a lógica de persistência dos dados, permitindo que a lógica de negócio seja implementada sem depender diretamente de detalhes de armazenamento.
-
-#### 3. **Padrão de Repositório**
-O sistema utiliza o **padrão de repositório** para abstrair o acesso aos dados. Isso permite que as regras de negócio interajam com os dados de forma isolada, facilitando a substituição de mecanismos de persistência sem impacto nas camadas superiores.
-
-#### 4. **Princípios SOLID**
-O projeto segue os princípios de design SOLID:
-
-- **Single Responsibility Principle (SRP)**: Cada classe ou módulo tem uma única responsabilidade. Por exemplo, o repositório é responsável apenas pela persistência de dados.
-- **Open/Closed Principle (OCP)**: O código está aberto para extensão, mas fechado para modificação, permitindo novas funcionalidades sem impactar o sistema existente.
-- **Liskov Substitution Principle (LSP)**: O uso de interfaces permite a substituição de classes sem alterar o comportamento esperado do sistema.
-- **Interface Segregation Principle (ISP)**: Interfaces são específicas para cada funcionalidade, ao invés de interfaces genéricas.
-- **Dependency Inversion Principle (DIP)**: Controladores e camadas de aplicação dependem de abstrações (interfaces), garantindo a flexibilidade do sistema.
-
-#### 5. **Separação de Preocupações**
-O projeto é organizado de maneira a separar claramente as diferentes responsabilidades, como:
-
-- **Controllers**: Lida com a lógica de interface com o usuário.
-- **Repositórios**: Gerenciam o acesso a dados e persistência.
-- **Entidades**: Contêm a lógica de negócio central.
-
-### Tecnologias Utilizadas
-
-- **AdonisJS**: Framework backend baseado em Node.js.
-- **TypeScript**: Linguagem utilizada para garantir maior segurança de tipos e robustez no desenvolvimento.
-- **Lucid ORM**: Gerenciador de banco de dados utilizado para interagir com a camada de persistência de dados.
-- **Luxon**: Biblioteca para manipulação de datas e horas.
-
-### Funcionalidades Principais
-
-- **Registro e Busca de Pessoas Desaparecidas**: Permite a criação, listagem e busca de registros de pessoas desaparecidas, com suporte à paginação e filtros.
-- **Integração com Bancos de Dados**: Persistência e gerenciamento de dados utilizando MySQL através do Lucid ORM.
-
----
-
-Com essa arquitetura, o projeto está preparado para crescer de forma organizada e escalável, garantindo manutenibilidade e flexibilidade ao longo do tempo.
-
---- 
-
-Essa descrição fornece um bom panorama da arquitetura e dos princípios usados no desenvolvimento do sistema.
+Isso é apenas uma base inicial. Você pode adicionar seções específicas, como links para testes unitários, diagramas de arquitetura, ou um exemplo de fluxo de trabalho para desenvolvedores que querem contribuir.
